@@ -61,10 +61,12 @@ def get_daily_revenue():
 
     try:
         filtered_data = df[(df['Order Date'] >= from_date) & (df['Order Date'] <= to_date)]
-        daily_revenue = filtered_data.groupby(filtered_data['Order Date'].dt.date)['Product Price'].sum()
+        filtered_data['Revenue'] = filtered_data['Quantity'] * filtered_data['Product Price']
+
+        daily_revenue = filtered_data.groupby(filtered_data['Order Date'].dt.date)['Revenue'].sum()
 
         # Convert the index (date) to string for the dictionary
-        daily_revenue_dict = daily_revenue.reset_index().set_index('Order Date').to_dict()['Product Price']
+        daily_revenue_dict = daily_revenue.reset_index().set_index('Order Date').to_dict()['Revenue']
         # Convert date keys to strings
         daily_revenue_dict = {str(key): value for key, value in daily_revenue_dict.items()}
         return jsonify(daily_revenue_dict)
