@@ -15,7 +15,7 @@ ITEM_NAME = 'Item Name'
 total = float(0)
 items = defaultdict(float)
 orders = defaultdict(list)
-csv_file = "data/restaurant-1-orders.csv"
+csv_file = "data/sample-orders.csv"
 
 with open(csv_file, newline='', encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
@@ -84,10 +84,11 @@ def get_monthly_revenue():
 
     try:
         filtered_data = df[(df['Order Date'] >= from_date) & (df['Order Date'] <= to_date)]
-        monthly_revenue = filtered_data.groupby(filtered_data['Order Date'].dt.to_period("M"))['Product Price'].sum()
+        filtered_data['Revenue'] = filtered_data['Quantity'] * filtered_data['Product Price']
+        monthly_revenue = filtered_data.groupby(filtered_data['Order Date'].dt.to_period("M"))['Revenue'].sum()
 
         # Convert the index (date) to string for the dictionary
-        monthly_revenue_dict = monthly_revenue.reset_index().set_index('Order Date').to_dict()['Product Price']
+        monthly_revenue_dict = monthly_revenue.reset_index().set_index('Order Date').to_dict()['Revenue']
         # Convert date keys to strings
         monthly_revenue_dict = {str(key): value for key, value in monthly_revenue_dict.items()}
         return jsonify(monthly_revenue_dict)
