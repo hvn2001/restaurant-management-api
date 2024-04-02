@@ -29,13 +29,15 @@ This is a Flask-based RESTful API for managing restaurant orders and analyzing r
 
 ## Usage
 
-1. Run the Flask application:
+1. Move the validated CSV file to the data folder.
+
+2. Run the Flask application:
 
     ```bash
     python app.py
     ```
 
-2. Once the server is running, you can access the API endpoints.
+3. Once the server is running, you can access the API endpoints.
 
 ## Endpoints
 

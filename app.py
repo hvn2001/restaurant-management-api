@@ -15,7 +15,7 @@ ITEM_NAME = 'Item Name'
 total = float(0)
 items = defaultdict(float)
 orders = defaultdict(list)
-csv_file = "data/sample-orders.csv"
+csv_file = "data/restaurant-1-orders.csv"
 
 with open(csv_file, newline='', encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
