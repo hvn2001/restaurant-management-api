@@ -6,7 +6,7 @@ from collections import defaultdict
 import pandas as pd
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
 
 QUANTITY = 'Quantity'
 ORDER_NUMBER = 'Order Number'
